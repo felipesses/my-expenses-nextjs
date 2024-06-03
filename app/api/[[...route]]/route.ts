@@ -1,28 +1,14 @@
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
+import accounts from "./accounts";
 
 export const runtime = "edge";
 
 const app = new Hono().basePath("/api");
 
-app
-  .get(
-    "/hello",
-    (x) => x,
-    (c) => {
-      return c.json({
-        message: "Hello Next.js!",
-      });
-    }
-  )
-  .get("/hello/:test", (c) => {
-    const test = c.req.param("test");
-
-    return c.json({
-      message: "hello world",
-      test,
-    });
-  });
+const routes = app.route("/accounts", accounts);
 
 export const GET = handle(app);
 export const POST = handle(app);
+
+export type AppType = typeof routes;

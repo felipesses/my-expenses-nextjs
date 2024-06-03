@@ -3,8 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
-
-const inter = Inter({ subsets: ["latin"] });
+import { QueryProvider } from "@/providers/query-provider";
 
 export const metadata: Metadata = {
   title: "My Expenses",
@@ -18,7 +17,9 @@ export default function RootLayout({
   return (
     <ClerkProvider localization={ptBR}>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body>
+          <QueryProvider>{children}</QueryProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
