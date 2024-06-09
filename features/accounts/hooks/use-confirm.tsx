@@ -8,6 +8,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 
 export const useConfirm = (
@@ -24,6 +25,7 @@ export const useConfirm = (
     });
 
   const handleClose = () => {
+    promise?.resolve(false);
     setPromise(null);
   };
 
@@ -38,9 +40,11 @@ export const useConfirm = (
   };
 
   const ConfirmationDialog = () => (
-    <Dialog open={promise !== null}>
+    <Dialog open={promise !== null} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader>
+          <DialogTrigger asChild>Fechar</DialogTrigger>
+
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{message}</DialogDescription>
         </DialogHeader>

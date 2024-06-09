@@ -33,6 +33,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filterKey: string;
+  filterKeyName: string;
   onDelete: (rows: Row<TData>[]) => void;
   disabled?: boolean;
 }
@@ -41,12 +42,13 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   filterKey,
+  filterKeyName,
   onDelete,
   disabled,
 }: DataTableProps<TData, TValue>) {
   const [ConfirmationDialog, confirm] = useConfirm(
-    "Tem certeza?",
-    "Você estará removendo alguns itens"
+    "Confirmar exclusão de itens",
+    "Tem certeza de que deseja remover os itens selecionados? Essa ação é irreversível."
   );
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -89,7 +91,7 @@ export function DataTable<TData, TValue>({
       <ConfirmationDialog />
       <div className="flex items-center py-4">
         <Input
-          placeholder={`Filtrar ${filterKey}`}
+          placeholder={`Filtrar ${filterKeyName}`}
           value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn(filterKey)?.setFilterValue(event.target.value)

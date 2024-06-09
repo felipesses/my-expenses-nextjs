@@ -89,11 +89,11 @@ export const AccountForm = ({
             type="button"
             disabled={disabled}
             onClick={handleDelete}
-            className="w-full"
+            className="w-full gap-2"
             variant="outline"
           >
             <Trash className="size-4" />
-            <p className="ml-4">Remover conta</p>
+            <p>Remover conta</p>
           </Button>
         ) : null}
       </form>
