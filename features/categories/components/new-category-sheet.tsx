@@ -6,22 +6,22 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 
-import { useCreateAccount } from "../api/use-create-account";
-import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
-import { AccountForm } from "./account-form";
-import { insertAccountSchema } from "@/db/schema";
+import { useCreateCategory } from "../api/use-create-category";
+import { useNewCategory } from "@/features/categories/hooks/use-new-category";
+import { CategoryForm } from "./category-form";
+import { insertCategoriesSchema } from "@/db/schema";
 import { z } from "zod";
 
-const formSchema = insertAccountSchema.pick({
+const formSchema = insertCategoriesSchema.pick({
   name: true,
 });
 
 type FormValues = z.input<typeof formSchema>;
 
-export const NewAccountSheet = () => {
-  const { isOpen, onOpen, onClose } = useNewAccount();
+export const NewCategorySheet = () => {
+  const { isOpen, onClose } = useNewCategory();
 
-  const { mutate, isPending } = useCreateAccount();
+  const { mutate, isPending } = useCreateCategory();
 
   const onSubmit = (values: FormValues) => {
     mutate(values, {
@@ -35,12 +35,12 @@ export const NewAccountSheet = () => {
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent className="space-y-4">
         <SheetHeader>
-          <SheetTitle>Nova conta</SheetTitle>
+          <SheetTitle>Nova categoria</SheetTitle>
           <SheetDescription>
-            Crie uma nova conta para gerenciar suas contas
+            Crie uma nova categoria para organizar suas transações
           </SheetDescription>
         </SheetHeader>
-        <AccountForm
+        <CategoryForm
           onSubmit={onSubmit}
           isPending={isPending}
           disabled={isPending}
