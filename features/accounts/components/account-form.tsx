@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Trash } from "lucide-react";
+import { Loader2, Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -28,6 +28,7 @@ type Props = {
   onSubmit: (values: FormValues) => void;
   onDelete?: () => void;
   disabled: boolean;
+  isPending: boolean;
 };
 
 export const AccountForm = ({
@@ -36,6 +37,7 @@ export const AccountForm = ({
   onSubmit,
   onDelete,
   disabled,
+  isPending,
 }: Props) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -73,7 +75,13 @@ export const AccountForm = ({
           )}
         />
         <Button disabled={disabled} className="w-full">
-          {id ? "Salvar mudanças" : "Criar conta"}
+          {isPending ? (
+            <Loader2 className="size-8 animate-spin" />
+          ) : id ? (
+            "Salvar mudanças"
+          ) : (
+            "Criar conta"
+          )}
         </Button>
 
         {id ? (
