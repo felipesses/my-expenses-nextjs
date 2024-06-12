@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS "transactions" (
 	"notes" text,
 	"date" timestamp NOT NULL,
 	"account_id" text NOT NULL,
-	"category_id" text NOT NULL
+	"category_id" text
 );
 --> statement-breakpoint
 DO $$ BEGIN
